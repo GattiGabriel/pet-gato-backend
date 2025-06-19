@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Cliente {
+  id Int @id @default(autoincrement())
+  nome String
+  bairro String
+  rua String
+  numero String
+  complemento String
+  email String?
+  telefone String
+  listaPets Animal[]
+}
+
+model Animal {
+  id Int @id @default(autoincrement())
+  nome String
+  raca String
+  porte String
+  idade Int
+  observacao String
+  clienteId Int
+  dono Cliente @relation(fields: [clienteId], references: [id])
+  banhos Banho[]
+}
+
+model Banho {
+  id Int @id @default(autoincrement())
+  valorTotal Float
+  data DateTime
+  animalId Int
+  animal Animal @relation(fields: [animalId], references: [id])
+  listaServicos BanhoServico[] 
+}
+
+model Servico {
+  id Int @id @default(autoincrement())
+  nome String
+  banhos BanhoServico[]
+}
+
+model Relatorio {
+  id Int @id @default(autoincrement())
+  dataCriacao DateTime
+  documento String
+}
+
+model BanhoServico {
+  banhoId Int
+  servicoId Int
+
+  banho Banho @relation(fields: [banhoId], references: [id])
+  Servico Servico @relation(fields: [servicoId], references: [id])
+
+  @@id([banhoId, servicoId])
+}
