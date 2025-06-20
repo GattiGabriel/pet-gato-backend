@@ -1,4 +1,4 @@
-import { IsDateString, IsInt, IsNumber } from 'class-validator';
+import { IsArray, IsDateString, IsInt, IsNumber } from 'class-validator';
 
 export class CreateBanhoDto {
   @IsNumber()
@@ -9,4 +9,8 @@ export class CreateBanhoDto {
 
   @IsInt()
   animalId: number;
+
+  @IsArray()
+  @IsNumber({}, { each: true })
+  listaServicos: number[];
 }

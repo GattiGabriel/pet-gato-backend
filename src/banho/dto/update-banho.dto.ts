@@ -1,4 +1,19 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateBanhoDto } from './create-banho.dto';
+import { IsNumber, IsOptional, IsDateString, IsArray } from 'class-validator';
 
-export class UpdateBanhoDto extends PartialType(CreateBanhoDto) {}
+export class UpdateBanhoDto {
+  @IsOptional()
+  @IsNumber()
+  valorTotal?: number;
+
+  @IsOptional()
+  @IsDateString()
+  data?: Date | string;
+
+  @IsOptional()
+  @IsNumber()
+  animalId?: number;
+
+  @IsOptional()
+  @IsArray()
+  listaServicos?: number[];
+}

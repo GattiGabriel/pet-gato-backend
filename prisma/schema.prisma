@@ -36,7 +36,7 @@ model Banho {
   valorTotal Float
   data DateTime
   animalId Int
-  animal Animal @relation(fields: [animalId], references: [id])
+  animal Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
   listaServicos BanhoServico[] 
 }
 
@@ -56,7 +56,7 @@ model BanhoServico {
   banhoId Int
   servicoId Int
 
-  banho Banho @relation(fields: [banhoId], references: [id])
+  banho Banho @relation(fields: [banhoId], references: [id], onDelete: Cascade)
   Servico Servico @relation(fields: [servicoId], references: [id])
 
   @@id([banhoId, servicoId])
